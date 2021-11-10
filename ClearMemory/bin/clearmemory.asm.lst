@@ -17,14 +17,15 @@
      16  f005							;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
      17  f005		       a9 00		      lda	#0	; A = 0
      18  f007		       a2 ff		      ldx	#$FF	; X = #$FF
-     19  f009				   MemLoop
-     20  f009		       95 00		      sta	$0,X	; Store the value of A inside memory address $0 + X
-     21  f00b		       ca		      dex		; X--
-     22  f00c		       d0 fb		      bne	MemLoop	; Loop until X is equal to zero (z-flag is set)
-     23  f00e
-     24  f00e							;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     25  f00e							; Fill the ROM size to exactly 4KB
-     26  f00e							;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     27  fffc					      org	$FFFC
-     28  fffc		       00 f0		      .word.w	Start	; Reset vector at $FFFC (where the program starts)
-     29  fffe		       00 f0		      .word.w	Start	; Interrupt vector at $FFFE (unused in the VCS)
+     19  f009		       85 ff		      sta	$FF	; Make sure $FF is zeroed before the loop starts
+     20  f00b				   MemLoop
+     21  f00b		       95 00		      sta	$0,X	; Store the value of A inside memory address $0 + X
+     22  f00d		       ca		      dex		; X--
+     23  f00e		       d0 fb		      bne	MemLoop	; Loop until X is equal to zero (z-flag is set)
+     24  f010
+     25  f010							;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     26  f010							; Fill the ROM size to exactly 4KB
+     27  f010							;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     28  fffc					      org	$FFFC
+     29  fffc		       00 f0		      .word.w	Start	; Reset vector at $FFFC (where the program starts)
+     30  fffe		       00 f0		      .word.w	Start	; Interrupt vector at $FFFE (unused in the VCS)
