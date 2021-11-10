@@ -1,6 +1,6 @@
     processor 6502
 
-    seq code
+    seg code
     org $F000       ; Define the code orgin at $F000
 
 Start:
